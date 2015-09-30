@@ -1,0 +1,13 @@
+{% extends "topnav.html" %}
+{% block head %}
+  {{ super() }}
+   <link rel="stylesheet" type="text/css" href={{ url_for('static', filename='styles/main.css') }}>
+{% endblock head %}
+{% block content %}
+  <div class="content-box">
+   <div id="banner">
+     <h1>Coming Soon!</h1>
+     <p>We're under some <i>heavy</i> contruction!</p>
+   </div>
+</div>
+{% endblock content %}
