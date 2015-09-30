@@ -1,6 +1,8 @@
-#!../env/bin/python
+#!env/bin/python
 from webui import webui
 from flask_zurb_foundation import Foundation
 
 Foundation(webui)
-webui.run(debug=True)
+
+if __name__ == "__main__":
+      webui.run()
