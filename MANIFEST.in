@@ -1,0 +1,3 @@
+recursive-include webui/templates *
+recursive-include webui/static *
+
