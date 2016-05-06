@@ -3,11 +3,12 @@ body {
 }
 p {
   color: white;
-  font: 'PT Sans' 16px;
+  font-family: 'PT Sans';
+  font-size: 16px;
   position: fixed;
   top: 50%;
   left: 50%;
-  transform: translate(-70%, -50%);
+  transform: translate(-50%, -75%);
 }
 .content-box {
   background: black;
