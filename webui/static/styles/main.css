@@ -7,7 +7,7 @@ p {
   font-size: 24px;
   position: fixed;
   top: 90%;
-  left: 50px;
+  float: right;
 }
 .content-box {
   background: black;
