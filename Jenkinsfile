@@ -1,7 +1,7 @@
 node {
   gitlabCommitStatus {
     stage 'Checkout'
-    checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'WipeWorkspace']], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'cef3b072-1a13-4f79-9b93-35b06c9dfcf1', url: 'git@gitlab.inf.puppetlabs.demo:code_manager/flask_puppet.git']]])
+    checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'cef3b072-1a13-4f79-9b93-35b06c9dfcf1', url: 'git@gitlab.inf.puppetlabs.demo:code_manager/flask_puppet.git']]])
 
     stage 'Install Dev Tools'
     sh '''
@@ -15,7 +15,7 @@ node {
     stage 'Unit Testing'
     sh '''
         . venv_python/bin/activate
-        python -m unittest discover  -v
+        python ./test.py -v
     '''
 
     stage 'Build sdist'
