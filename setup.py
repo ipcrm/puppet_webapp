@@ -41,7 +41,6 @@ setup(
       'Mako==1.0.2',
       'MarkupSafe==0.23',
       'passlib==1.6.5',
-      'psycopg2==2.6.1',
       'SQLAlchemy==1.0.8',
       'Werkzeug==0.10.4',
       'WTForms==2.0.2',
