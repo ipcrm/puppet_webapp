@@ -9,6 +9,7 @@ node {
         test -d "venv_python" || virtualenv venv_python
         . venv_python/bin/activate
         pip install -r requirements.txt --download-cache=/tmp/$JOB_NAME
+        pip install discover
     '''
 
     stage 'Unit Testing'
