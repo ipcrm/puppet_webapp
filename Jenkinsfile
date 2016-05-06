@@ -4,24 +4,24 @@ node {
     checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'WipeWorkspace']], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'cef3b072-1a13-4f79-9b93-35b06c9dfcf1', url: 'git@gitlab.inf.puppetlabs.demo:code_manager/flask_puppet.git']]])
 
     stage 'Install Dev Tools'
-    sh '
+    sh '''
         PATH=$WORKSPACE/venv_python:bin:/usr/local/bin:$PATH
         test -d "venv_python" ] || virtualenv venv_python
         . venv_python/bin/activate
         pip install -r requirements.txt --download-cache=/tmp/$JOB_NAME
-    '
+    '''
 
     stage 'Unit Testing'
-    sh '
+    sh '''
         . venv_python/bin/activate
         python -m unittest discover  -v
-    '
+    '''
 
     stage 'Build sdist'
-    sh '
+    sh '''
         . venv_python/bin/activate
         python ./setup.py sdist
-    '
+    '''
 
     stage 'Release sdist to Test'
     sh 'scp dist/*.tar.gz jenkins_scp@master.inf.puppetlabs.demo:/opt/tse-files/artifacts/flask_puppet.unstable.tar.gz'
