@@ -1,6 +1,9 @@
 body {
   background: black
 }
+p {
+  color: white;
+}
 .content-box {
   background: black;
   width: 100%;
