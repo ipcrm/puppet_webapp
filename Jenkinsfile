@@ -36,7 +36,7 @@ ANSWER'''
     sleep 10
     sh "curl -o /dev/null --silent --head --write-out '%{http_code}\n' http://centos7a.pdx.puppetlabs.demo:6000/ |grep 200 &> /dev/null"
 
-    stage 'Release Artifact to Stage'
+    stage 'Release sdist to Stage'
     sh 'scp dist/*.tar.gz jenkins_scp@master.inf.puppetlabs.demo:/opt/tse-files/artifacts/flask_puppet.stable.tar.gz'
     archive 'dist/*.tar.gz'
 
