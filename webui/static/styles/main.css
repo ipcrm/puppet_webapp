@@ -3,10 +3,11 @@ body {
 }
 p {
   color: white;
+  font: 'PT Sans' 16px;
   position: fixed;
   top: 50%;
   left: 50%;
-  transform: translate(-48%, -48%);
+  transform: translate(-70%, -50%);
 }
 .content-box {
   background: black;
