@@ -35,7 +35,6 @@ setup(
       'Flask-SQLAlchemy==2.0',
       'Flask-Testing==0.4.2',
       'Flask-WTF==0.12',
-      'Flask-Zurb-Foundation==0.2.1',
       'itsdangerous==0.24',
       'Jinja2==2.8',
       'Mako==1.0.2',

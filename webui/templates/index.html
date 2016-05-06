@@ -1,10 +1,20 @@
-{% extends "foundation/base.html" %}
-{% block head %}
-  {{ super() }}
-   <link rel="stylesheet" type="text/css" href={{ url_for('static', filename='styles/main.css') }}>
-{% endblock head %}
-{% block content %}
-<div class="content-box">
-  <img src='static/img/logo.png' />
-</div>
-{% endblock content %}
+<!doctype html>
+<html>
+  <head>
+    {% block head %}
+    <link rel="stylesheet" type="text/css" href={{ url_for('static', filename='styles/main.css') }}>
+    <title>{% block title %}{% endblock %} - Puppet</title>
+    {% endblock %}
+  </head>
+  <body>
+    <div id="content">{% block content %}
+      <div class="content-box">
+        <img src='static/img/logo.png' />
+      </div>
+    {% endblock %}</div>
+    <div id="footer">
+      {% block footer %}
+      {% endblock %}
+    </div>
+  </body>
+</html>

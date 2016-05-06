@@ -1,11 +1,8 @@
 from webui import webui
-from flask_zurb_foundation import Foundation
 
 import os
 import unittest
 import tempfile
-
-Foundation(webui)
 
 class FlaskTestCase(unittest.TestCase):
     def setUp(self):
