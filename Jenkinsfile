@@ -18,7 +18,7 @@ node {
         python ./test.py -v
     '''
 
-    stage 'Build sdist'
+    stage 'Build sdist archive'
     sh '''
         . venv_python/bin/activate
         python ./setup.py sdist
