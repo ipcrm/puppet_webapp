@@ -35,7 +35,7 @@ ANSWER'''
 
     stage 'Acceptance Test'
     sleep 10
-    sh "curl -o /dev/null --silent --head --write-out '%{http_code}\n' http://centos7a.pdx.puppetlabs.demo/|grep 200 &> /dev/null"
+    sh "curl -o /dev/null --silent --head --write-out '%{http_code}\n' http://appserver1a.pdx.puppetlabs.demo/|grep 200 &> /dev/null"
 
     stage 'Release sdist to Stage'
     sh 'scp dist/*.tar.gz jenkins_scp@master.inf.puppetlabs.demo:/opt/tse-files/artifacts/flask_puppet.stable.tar.gz'
@@ -49,7 +49,7 @@ ANSWER'''
 
     stage 'Acceptance Test'
     sleep 30
-    sh "curl -o /dev/null --silent --head --write-out '%{http_code}\n' http://centos7b.pdx.puppetlabs.demo/|grep 200 &> /dev/null"
+    sh "curl -o /dev/null --silent --head --write-out '%{http_code}\n' http://appserver1b.pdx.puppetlabs.demo/|grep 200 &> /dev/null"
   }
 
 
