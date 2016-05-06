@@ -1,6 +1,14 @@
 body {
   background: black
 }
+p {
+  color: white;
+  font-family: 'PT Sans';
+  font-size: 24px;
+  float: right;
+  padding-right: 20px;
+  margin-top: 50%;
+}
 .content-box {
   background: black;
   width: 100%;
