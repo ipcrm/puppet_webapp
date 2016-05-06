@@ -2,3 +2,4 @@
 *.pyc
 MANIFEST
 dist/
+flask_puppet.egg-info/
