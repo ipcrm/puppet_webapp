@@ -5,7 +5,7 @@ setup(
     name="flask_puppet",
 
     # Version number (initial):
-    version="0.1.3",
+    version="0.1.0",
 
     # Application author details:
     author="Matt Cadorette",
