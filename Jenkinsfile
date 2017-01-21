@@ -1,7 +1,9 @@
 node {
-  gitlabCommitStatus {
-    stage 'Checkout'
-    checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'cef3b072-1a13-4f79-9b93-35b06c9dfcf1', url: 'git@gitlab.inf.puppetlabs.demo:code_manager/flask_puppet.git']]])
+
+    git url:'git@github.com:ipcrm/flask_puppet.git', branch: 'master'
+
+    def hostaddress = 'jenkins.demo.lan'
+    puppet.credentials 'pe-access-token'
 
     stage 'Install Dev Tools'
     sh '''
@@ -24,34 +26,38 @@ node {
         python ./setup.py sdist
     '''
 
-    stage 'Release sdist to Test'
-    sh 'scp dist/*.tar.gz jenkins_scp@master.inf.puppetlabs.demo:/opt/tse-files/artifacts/flask_puppet.unstable.tar.gz'
+    $pkgversion = sh(returnStdout: true, script: '''
+      python ./setup.py --version
+    '''
 
-    stage 'Deploy Test'
-    sh '''/opt/puppetlabs/client-tools/bin/puppet-access login --username deploy --service-url https://master.inf.puppetlabs.demo:4433/rbac-api <<ANSWER
-puppetlabs
-ANSWER'''
-    sh '/opt/puppetlabs/bin/puppet-job run Apps::Flask_puppet[dev]'
+    archive "dist/flask_puppet-${pkgversion}.tar.gz"
 
-    stage 'Acceptance Test'
-    sleep 10
-    sh "curl -o /dev/null --silent --head --write-out '%{http_code}\n' http://appserver1a.pdx.puppetlabs.demo/|grep 200 &> /dev/null"
+    step([$class: 'CopyArtifact', filter: "flask_puppet-${version}.tar.gz", fingerprintArtifacts: true, projectName: env.JOB_NAME, selector: [$class: 'SpecificBuildSelector', buildNumber: env.BUILD_ID], target: '/var/www/html/builds/flask_puppet'])
 
-    stage 'Release sdist to Stage'
-    sh 'scp dist/*.tar.gz jenkins_scp@master.inf.puppetlabs.demo:/opt/tse-files/artifacts/flask_puppet.stable.tar.gz'
-    archive 'dist/*.tar.gz'
+    stage 'Deploy to Dev'
+    puppet.hiera scope: 'flask_puppet_dev', key: 'dist_file', value: "http://" + hostaddress + "/builds/flask_puppet/flask_puppet-${pkgversion}.tar.gz"
+    puppet.job 'production', query: 'nodes { facts { name = "role" and value = "flask_puppet" } and facts { name = "appenv" and value = "dev"}}'
 
-    stage 'Deploy Stage'
-    sh '''/opt/puppetlabs/client-tools/bin/puppet-access login --username deploy --service-url https://master.inf.puppetlabs.demo:4433/rbac-api <<ANSWER
-puppetlabs
-ANSWER'''
-    sh '/opt/puppetlabs/bin/puppet-job run Apps::Flask_puppet[stage]'
+    stage 'Dev Acceptance Test(s)'
+    devnodes = puppet.query 'nodes { facts { name = "role" and value = "flask_puppet" } and facts { name = "appenv" and value = "dev"}}'
+    for (Map node : devnodes) {
+      sh "curl -o /dev/null --silent --head --write-out '%{http_code}\n' http://${devnode.certname}/|grep 200 &> /dev/null"
+    }
 
-    stage 'Acceptance Test'
-    sleep 30
-    sh "curl -o /dev/null --silent --head --write-out '%{http_code}\n' http://appserver1b.pdx.puppetlabs.demo/|grep 200 &> /dev/null"
-  }
+    stage 'Simulate Deploy to Prod'
+    puppet.hiera scope: 'flask_puppet_prod', key: 'dist_file', value: "http://" + hostaddress + "/builds/flask_puppet/flask_puppet-${pkgversion}.tar.gz"
+    puppet.job 'production', noop: true, query: 'nodes { facts { name = "role" and value = "flask_puppet" } and facts { name = "appenv" and value = "prod"}}'
 
 
+    stage 'Deploy to Prod'
+    input "Ready to Deploy to production?"
+    puppet.hiera scope: 'flask_puppet_prod', key: 'dist_file', value: "http://" + hostaddress + "/builds/flask_puppet/flask_puppet-${pkgversion}.tar.gz"
+    puppet.job 'production', query: 'nodes { facts { name = "role" and value = "flask_puppet" } and facts { name = "appenv" and value = "prod"}}'
+
+    stage 'Prod Acceptance Test(s)'
+    prodnodes = puppet.query 'nodes { facts { name = "role" and value = "flask_puppet" } and facts { name = "appenv" and value = "prod"}}'
+    for (Map node : prodnodes) {
+      sh "curl -o /dev/null --silent --head --write-out '%{http_code}\n' http://${devnode.certname}/|grep 200 &> /dev/null"
+    }
 
 }
