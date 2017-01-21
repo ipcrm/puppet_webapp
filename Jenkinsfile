@@ -26,7 +26,7 @@ node {
         python ./setup.py sdist
     '''
 
-    $pkgversion = sh(returnStdout: true, script: '''
+    pkgversion = sh(returnStdout: true, script: '''
       python ./setup.py --version
     ''')
 
