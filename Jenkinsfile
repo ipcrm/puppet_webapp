@@ -32,7 +32,7 @@ node {
 
     archive "dist/flask_puppet-${pkgversion}.tar.gz"
 
-    step([$class: 'CopyArtifact', filter: "flask_puppet-${version}.tar.gz", fingerprintArtifacts: true, projectName: env.JOB_NAME, selector: [$class: 'SpecificBuildSelector', buildNumber: env.BUILD_ID], target: '/var/www/html/builds/flask_puppet'])
+    step([$class: 'CopyArtifact', filter: "flask_puppet-${pkgversion}.tar.gz", fingerprintArtifacts: true, projectName: env.JOB_NAME, selector: [$class: 'SpecificBuildSelector', buildNumber: env.BUILD_ID], target: '/var/www/html/builds/flask_puppet'])
 
     stage 'Deploy to Dev'
     puppet.hiera scope: 'flask_puppet_dev', key: 'dist_file', value: "http://" + hostaddress + "/builds/flask_puppet/flask_puppet-${pkgversion}.tar.gz"
