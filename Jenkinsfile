@@ -28,7 +28,7 @@ node {
 
     $pkgversion = sh(returnStdout: true, script: '''
       python ./setup.py --version
-    '''
+    ''')
 
     archive "dist/flask_puppet-${pkgversion}.tar.gz"
 
