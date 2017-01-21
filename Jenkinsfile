@@ -44,13 +44,13 @@ node {
     }
 
     stage 'Simulate Deploy to Prod'
-    puppet.hiera scope: 'flask_puppet_prod', key: 'dist_file', value: "http://" + hostaddress + "/builds/flask_puppet/flask_puppet-${pkgversion}.tar.gz"
+    puppet.hiera scope: 'flask_puppet_prod', key: 'flask_puppet_dist_file', value: "http://" + hostaddress + "/builds/flask_puppet/flask_puppet-${pkgversion}.tar.gz"
     puppet.job 'production', noop: true, query: 'nodes { facts { name = "role" and value = "flask_puppet" } and facts { name = "appenv" and value = "prod"}}'
 
 
     stage 'Deploy to Prod'
     input "Ready to Deploy to production?"
-    puppet.hiera scope: 'flask_puppet_prod', key: 'dist_file', value: "http://" + hostaddress + "/builds/flask_puppet/flask_puppet-${pkgversion}.tar.gz"
+    puppet.hiera scope: 'flask_puppet_prod', key: 'flask_puppet_dist_file', value: "http://" + hostaddress + "/builds/flask_puppet/flask_puppet-${pkgversion}.tar.gz"
     puppet.job 'production', query: 'nodes { facts { name = "role" and value = "flask_puppet" } and facts { name = "appenv" and value = "prod"}}'
 
     stage 'Prod Acceptance Test(s)'
