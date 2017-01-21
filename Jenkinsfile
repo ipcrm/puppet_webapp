@@ -29,8 +29,7 @@ node {
     pkgversion = sh(returnStdout: true, script: '''
       python ./setup.py --version
     ''')
-
-    archive "dist/flask_puppet-${pkgversion}.tar.gz"
+    archive "dist/*.tar.gz"
 
     step([$class: 'CopyArtifact', filter: "flask_puppet-${pkgversion}.tar.gz", fingerprintArtifacts: true, projectName: env.JOB_NAME, selector: [$class: 'SpecificBuildSelector', buildNumber: env.BUILD_ID], target: '/var/www/html/builds/flask_puppet'])
 
