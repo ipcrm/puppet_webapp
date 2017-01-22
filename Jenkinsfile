@@ -38,7 +38,7 @@ node {
     build job: 'ipcrm-flask_app'
 
     stage 'Deploy to Dev'
-    puppet.hiera scope: 'flask_puppet_dev', key: 'flask_puppet_dev-dist_file', value: "http://" + hostaddress + "/builds/dist/flask_puppet/flask_puppet-${pkgversion}.tar.gz"
+    puppet.hiera scope: 'flask_puppet_dev', key: 'flask_puppet_dev-dist_file', value: "http://" + hostaddress + "/builds/flask_puppet/dist/flask_puppet-${pkgversion}.tar.gz"
     puppet.job 'production', query: 'nodes { facts { name = "role" and value = "flask_puppet" } and facts { name = "appenv" and value = "flask_puppet_dev"}}'
 
     stage 'Dev Acceptance Test(s)'
@@ -50,7 +50,7 @@ node {
     }
 
     stage 'Simulate Deploy to Prod'
-    puppet.hiera scope: 'flask_puppet_prod', key: 'flask_puppet_prod-dist_file', value: "http://" + hostaddress + "/builds/dist/flask_puppet/flask_puppet-${pkgversion}.tar.gz"
+    puppet.hiera scope: 'flask_puppet_prod', key: 'flask_puppet_prod-dist_file', value: "http://" + hostaddress + "/builds/flask_puppet/dist/flask_puppet-${pkgversion}.tar.gz"
     puppet.job 'production', noop: true, query: 'nodes { facts { name = "role" and value = "flask_puppet" } and facts { name = "appenv" and value = "flask_puppet_prod"}}'
 
 
