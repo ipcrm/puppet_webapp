@@ -10,7 +10,7 @@ node {
         PATH=$WORKSPACE/venv_python:bin:/usr/local/bin:$PATH
         test -d "venv_python" || virtualenv venv_python
         . venv_python/bin/activate
-        pip install -r requirements.txt 
+        pip install -r requirements.txt
         pip install discover
     '''
 
