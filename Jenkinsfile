@@ -34,7 +34,7 @@ node {
     step([$class: 'CopyArtifact', filter: "dist/flask_puppet-${pkgversion}.tar.gz", fingerprintArtifacts: true, projectName: env.JOB_NAME, selector: [$class: 'SpecificBuildSelector', buildNumber: env.BUILD_ID], target: '/var/www/html/builds/flask_puppet'])
 
     stage 'Deploy to Dev'
-    puppet.hiera scope: 'flask_puppet_dev', key: 'flask_puppet_dist_file', value: "http://" + hostaddress + "/builds/flask_puppet/flask_puppet-${pkgversion}.tar.gz"
+    puppet.hiera scope: 'flask_puppet_dev', key: 'flask_puppet-dev-dist_file', value: "http://" + hostaddress + "/builds/flask_puppet/flask_puppet-${pkgversion}.tar.gz"
     puppet.job 'production', query: 'nodes { facts { name = "role" and value = "flask_puppet" } and facts { name = "appenv" and value = "dev"}}'
 
     stage 'Dev Acceptance Test(s)'
@@ -44,13 +44,12 @@ node {
     }
 
     stage 'Simulate Deploy to Prod'
-    puppet.hiera scope: 'flask_puppet_prod', key: 'flask_puppet_dist_file', value: "http://" + hostaddress + "/builds/flask_puppet/flask_puppet-${pkgversion}.tar.gz"
+    puppet.hiera scope: 'flask_puppet_prod', key: 'flask_puppet-prod-dist_file', value: "http://" + hostaddress + "/builds/flask_puppet/flask_puppet-${pkgversion}.tar.gz"
     puppet.job 'production', noop: true, query: 'nodes { facts { name = "role" and value = "flask_puppet" } and facts { name = "appenv" and value = "prod"}}'
 
 
     stage 'Deploy to Prod'
     input "Ready to Deploy to production?"
-    puppet.hiera scope: 'flask_puppet_prod', key: 'flask_puppet_dist_file', value: "http://" + hostaddress + "/builds/flask_puppet/flask_puppet-${pkgversion}.tar.gz"
     puppet.job 'production', query: 'nodes { facts { name = "role" and value = "flask_puppet" } and facts { name = "appenv" and value = "prod"}}'
 
     stage 'Prod Acceptance Test(s)'
