@@ -45,6 +45,8 @@ node {
     devnodes = puppet.query 'nodes { facts { name = "role" and value = "flask_puppet" } and facts { name = "appenv" and value = "dev"}}'
     for (Map devnode : devnodes) {
       sh "curl -o /dev/null --silent --head --write-out '%{http_code}\n' http://${devnode.certname}/|grep 200 &> /dev/null"
+      sh "curl --silent http://${devnode.certname}/|grep 'Puppet' &> /dev/null"
+      sh "curl --silent http://${devnode.certname}/TESTPOST|grep 'TESTPOST' &> /dev/null"
     }
 
     stage 'Simulate Deploy to Prod'
@@ -60,6 +62,8 @@ node {
     prodnodes = puppet.query 'nodes { facts { name = "role" and value = "flask_puppet" } and facts { name = "appenv" and value = "prod"}}'
     for (Map prodnode : prodnodes) {
       sh "curl -o /dev/null --silent --head --write-out '%{http_code}\n' http://${prodnode.certname}/|grep 200 &> /dev/null"
+      sh "curl --silent http://${prodnode.certname}/|grep 'Puppet' &> /dev/null"
+      sh "curl --silent http://${prodnode.certname}/TESTPOST|grep 'TESTPOST' &> /dev/null"
     }
 
 }
