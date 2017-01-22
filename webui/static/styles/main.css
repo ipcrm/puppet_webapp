@@ -15,8 +15,6 @@ p {
   height: 100%;
 }
 .content-box img {
-  position: fixed;
   top: 50%;
-  left: 100%;
-  transform: translate(-50%, -50%);
+  left: 25%;
 }
