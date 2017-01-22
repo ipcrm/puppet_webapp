@@ -1,11 +1,16 @@
 from setuptools import setup
 
+try:
+  verstr = open('webui/_version.py', "rt").read()
+except:
+  raise RuntimeError("cannot read version file")
+
 setup(
     # Application name:
     name="flask_puppet",
 
     # Version number (initial):
-    version="0.1.1",
+    version=verstr,
 
     # Application author details:
     author="Matt Cadorette",
