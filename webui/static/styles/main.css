@@ -19,3 +19,7 @@ p {
   left: 25%;
   position: fixed;
 }
+.content-box p {
+  padding-right: 5%;
+  margin-top: 35%;
+}
