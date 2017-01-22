@@ -59,7 +59,7 @@ node {
     puppet.job 'production', query: 'nodes { facts { name = "role" and value = "flask_puppet" } and facts { name = "appenv" and value = "flask_puppet_prod"}}'
 
     stage 'Prod Acceptance Test(s)'
-    prodnodes = puppet.query 'nodes { facts { name = "role" and value = "flask_puppet" } and facts { name = "appenv" and value = "prod"}}'
+    prodnodes = puppet.query 'nodes { facts { name = "role" and value = "flask_puppet" } and facts { name = "appenv" and value = "flask_puppet_prod"}}'
     for (Map prodnode : prodnodes) {
       sh "curl -o /dev/null --silent --head --write-out '%{http_code}\n' http://${prodnode.certname}/|grep 200 &> /dev/null"
       sh "curl --silent http://${prodnode.certname}/|grep 'Puppet' &> /dev/null"
