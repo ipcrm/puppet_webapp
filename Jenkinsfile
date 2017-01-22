@@ -39,10 +39,10 @@ node {
 
     stage 'Deploy to Dev'
     puppet.hiera scope: 'flask_puppet_dev', key: 'flask_puppet_dev-dist_file', value: "http://" + hostaddress + "/builds/dist/flask_puppet/flask_puppet-${pkgversion}.tar.gz"
-    puppet.job 'production', query: 'nodes { facts { name = "role" and value = "flask_puppet" } and facts { name = "appenv" and value = "dev"}}'
+    puppet.job 'production', query: 'nodes { facts { name = "role" and value = "flask_puppet" } and facts { name = "appenv" and value = "flask_puppet_dev"}}'
 
     stage 'Dev Acceptance Test(s)'
-    devnodes = puppet.query 'nodes { facts { name = "role" and value = "flask_puppet" } and facts { name = "appenv" and value = "dev"}}'
+    devnodes = puppet.query 'nodes { facts { name = "role" and value = "flask_puppet" } and facts { name = "appenv" and value = "flask_puppet_dev"}}'
     for (Map devnode : devnodes) {
       sh "curl -o /dev/null --silent --head --write-out '%{http_code}\n' http://${devnode.certname}/|grep 200 &> /dev/null"
       sh "curl --silent http://${devnode.certname}/|grep 'Puppet' &> /dev/null"
@@ -51,12 +51,12 @@ node {
 
     stage 'Simulate Deploy to Prod'
     puppet.hiera scope: 'flask_puppet_prod', key: 'flask_puppet_prod-dist_file', value: "http://" + hostaddress + "/builds/dist/flask_puppet/flask_puppet-${pkgversion}.tar.gz"
-    puppet.job 'production', noop: true, query: 'nodes { facts { name = "role" and value = "flask_puppet" } and facts { name = "appenv" and value = "prod"}}'
+    puppet.job 'production', noop: true, query: 'nodes { facts { name = "role" and value = "flask_puppet" } and facts { name = "appenv" and value = "flask_puppet_prod"}}'
 
 
     stage 'Deploy to Prod'
     input "Ready to Deploy to production?"
-    puppet.job 'production', query: 'nodes { facts { name = "role" and value = "flask_puppet" } and facts { name = "appenv" and value = "prod"}}'
+    puppet.job 'production', query: 'nodes { facts { name = "role" and value = "flask_puppet" } and facts { name = "appenv" and value = "flask_puppet_prod"}}'
 
     stage 'Prod Acceptance Test(s)'
     prodnodes = puppet.query 'nodes { facts { name = "role" and value = "flask_puppet" } and facts { name = "appenv" and value = "prod"}}'
