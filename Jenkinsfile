@@ -1,5 +1,7 @@
 node {
 
+    step([$class: 'WsCleanup'])
+
     git url:'git@github.com:ipcrm/flask_puppet.git', branch: 'master'
 
     def hostaddress = 'jenkins.demo.lan'
@@ -66,5 +68,7 @@ node {
       sh "curl --silent http://${prodnode.certname}/|grep 'Puppet' &> /dev/null"
       sh "curl --silent http://${prodnode.certname}/TESTPOST|grep 'TESTPOST' &> /dev/null"
     }
+
+   
 
 }
