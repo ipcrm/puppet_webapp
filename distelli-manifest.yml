@@ -1,9 +1,9 @@
 ipcrm/puppet_webapp:
   PreBuild:
-    - sudo apt-get update
-    - sudo apt-get install -y python3-venv
-    - python3 -m venv build
-    - source build/bin/activate
+    - git clone https://github.com/pyenv/pyenv.git ~/.pyenv
+    - eval "$(pyenv init -)"
+    - pyenv install 3.6.3
+    - pyenv local 3.6.3
     - pip install -r requirements.txt
     - pip install discover
     - python ./test.py -v
