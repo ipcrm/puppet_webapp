@@ -5,4 +5,6 @@ curl -s -f -k -X POST -H "Content-Type: application/json" "https://api.github.co
 echo "Uploading artifact to github release"
 ARCHIVE=$(find . -name '*.tar.gz')
 GH_ASSET="https://uploads.github.com/repos/$GITHUB_USERNAME/$GITHUB_APPNAME/releases/$DISTELLI_BUILDNUM/assets?name=$(basename $ARCHIVE)"
+echo $GH_ASSET
+echo $ARCHIVE
 curl --data-binary @$ARCHIVE --header "Authorization: token $GITHUB_TOKEN" $GH_ASSET
