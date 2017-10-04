@@ -3,3 +3,6 @@
 MANIFEST
 dist/
 flask_puppet.egg-info/
+build/
+puppet_webapp.egg-info/
+

@@ -15,7 +15,7 @@ else:
 
 setup(
     # Application name:
-    name="flask_puppet",
+    name="puppet_webapp",
 
     # Version number (initial):
     version=verstr,
@@ -31,7 +31,7 @@ setup(
     include_package_data=True,
 
     # Details
-    url="https://github.com/ipcrm/flask_puppet",
+    url="https://github.com/ipcrm/puppet_webapp",
 
     description="Example App",
 

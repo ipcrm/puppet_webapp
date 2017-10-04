@@ -1,0 +1,9 @@
+ipcrm/puppet_webapp:
+  PreBuild:
+    - pip install -r requirements.txt
+    - pip install discover
+    - python ./test.py -v
+  Build:
+    - python ./setup.py sdist
+  PkgInclude:
+    - 'dist/*.tar.gz'
