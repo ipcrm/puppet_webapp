@@ -12,4 +12,4 @@ ipcrm/puppet_webapp:
   Build:
     - python ./setup.py sdist
   PkgInclude:
-    - 'dist/*.tar.gz'
+    - '*.tar.gz'
