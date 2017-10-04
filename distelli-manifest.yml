@@ -20,5 +20,4 @@ ipcrm/puppet_webapp:
     - curl -s -f -k -X POST -H "Content-Type: application/json" "https://api.github.com/repos/$GITHUB_USERNAME/$GITHUB_APPNAME/releases?access_token=$GITHUB_TOKEN" -d "$API_JSON"
     - ARCHIVE=$(find . -name '*.tar.gz')
     - GH_ASSET="https://uploads.github.com/repos/$GITHUB_USERNAME/$GITHUB_APPNAME/releases/$DISTELLI_BUILDNUM/assets?name=$(basename $ARCHIVE)"
-    - curl -d "@$ARCHIVE" -H "Authorization: token $GITHUB_TOKEN" -H "Content-Type: application/octent-stream" "$GH_ASSET"
-
+    - curl --data-binary @$ARCHIVE --header "Authorization: token $GITHUB_TOKEN" $GH_ASSET
