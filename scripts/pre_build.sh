@@ -1,4 +1,4 @@
-curl -s -o jq 'https://github.com/stedolan/jq/releases/download/jq-1.5/jq-linux64'
+wget -q https://github.com/stedolan/jq/releases/download/jq-1.5/jq-linux64 -O jq
 chmod +x jq
 git clone https://github.com/pyenv/pyenv.git ~/.pyenv
 export PYENV_ROOT="$HOME/.pyenv"
