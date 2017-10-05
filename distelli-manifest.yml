@@ -7,13 +7,11 @@ ipcrm/puppet_webapp:
     - export PATH="$PYENV_ROOT/bin:$PATH"
     - eval "$(pyenv init -)"
     - pyenv install 2.7.10
-  Build:
-    - export PYENV_ROOT="$HOME/.pyenv"
-    - export PATH="$PYENV_ROOT/bin:$PATH"
     - pyenv local 2.7.10
     - pip install -r requirements.txt
     - pip install discover
     - python ./test.py -v
+  Build:
     - python ./setup.py sdist
   PkgInclude:
     - 'dist/*.tar.gz'
