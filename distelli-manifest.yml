@@ -2,7 +2,6 @@ ipcrm/puppet_webapp:
   PreBuild:
     - wget https://github.com/stedolan/jq/releases/download/jq-1.5/jq-linux64 -O jq
     - chmod +x jq
-    - mv jq /usr/bin/
     - git clone https://github.com/pyenv/pyenv.git ~/.pyenv
     - export PYENV_ROOT="$HOME/.pyenv"
     - export PATH="$PYENV_ROOT/bin:$PATH"
