@@ -8,4 +8,4 @@ ipcrm/puppet_webapp:
   PkgInclude:
     - 'dist/*.tar.gz'
   PostInstall:
-    - ls $DISTELLI_INSTALLHOME
+    - env
