@@ -7,3 +7,5 @@ ipcrm/puppet_webapp:
     - sh ./scripts/after_build.sh
   PkgInclude:
     - 'dist/*.tar.gz'
+  PostInstall:
+    - ls $DISTELLI_INSTALLHOME
