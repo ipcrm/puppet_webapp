@@ -1,6 +1,6 @@
 from flask import render_template
 from webui import webui
-from _version import __version__
+from ._version import __version__
 
 @webui.route('/')
 @webui.route('/index')

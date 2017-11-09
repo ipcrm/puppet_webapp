@@ -5,4 +5,6 @@ dist/
 flask_puppet.egg-info/
 build/
 puppet_webapp.egg-info/
-
+.tox
+.eggs
+.python-version

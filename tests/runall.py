@@ -18,22 +18,22 @@ class FlaskTestCase(unittest.TestCase):
 
     def test_response(self):
         rv = self.app.get('/')
-        self.assertTrue("logo.png" in rv.data)
+        self.assertTrue("logo.png" in str(rv.data))
 
     def test_response_tagline(self):
         rv = self.app.get('/')
-        self.assertTrue("The shortest path to better" in rv.data)
-        self.assertTrue("software" in rv.data)
+        self.assertTrue("The shortest path to better" in str(rv.data))
+        self.assertTrue("software" in str(rv.data))
 
     def test_response_tagline_dynamic(self):
         rv = self.app.get('/automation')
-        self.assertTrue("The shortest path to better" in rv.data)
-        self.assertTrue("automation" in rv.data)
+        self.assertTrue("The shortest path to better" in str(rv.data))
+        self.assertTrue("automation" in str(rv.data))
 
 
     def test_404_response(self):
         rv = self.app.get('/testurl')
-        self.assertTrue("logo.png" in rv.data)
+        self.assertTrue("logo.png" in str(rv.data))
 
 if __name__ == '__main__':
     unittest.main()

@@ -1,4 +1,4 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 import re
 
 try:
@@ -34,6 +34,7 @@ setup(
     url="https://github.com/ipcrm/puppet_webapp",
 
     description="Example App",
+    test_suite = 'tests',
 
     # Dependent packages (distributions)
     install_requires=[
@@ -44,4 +45,5 @@ setup(
       'MarkupSafe==0.23',
       'Werkzeug==0.11.9',
     ],
+
 )
