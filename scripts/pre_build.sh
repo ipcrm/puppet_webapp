@@ -5,6 +5,7 @@ export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
 pyenv install 2.7.10
-pyenv local 2.7.10
-pip install -r requirements.txt
-pip install discover
+pyenv install 3.3.6
+pyenv install 3.4.3
+pyenv install 3.5.0
+pip install tox
