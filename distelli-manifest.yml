@@ -8,4 +8,6 @@ ipcrm/puppet_webapp:
   PkgInclude:
     - 'dist/*.tar.gz'
   PostInstall:
-    - env
+    - sudo pip install dist/* --no-deps
+  Start:
+    - sudo service httpd restart
