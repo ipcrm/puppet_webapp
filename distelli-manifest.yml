@@ -25,7 +25,7 @@ ipcrm/puppet_webapp:
     - virtualenv ~/virtualenv/puppet_webapp
   PostInstall:
     - source ~/virtualenv/puppet_webapp/bin/activate
-    - pip install dist/* --no-deps
+    - pip install dist/*
     - pip install gunicorn
   Exec:
     - source ~/virtualenv/puppet_webapp/bin/activate
