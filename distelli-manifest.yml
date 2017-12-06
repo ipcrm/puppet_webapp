@@ -1,6 +1,6 @@
 ipcrm/puppet_webapp:
   Env:
-    - PORT: 8080
+    - PORT: "8080"
   PreBuild:
     - git clone https://github.com/pyenv/pyenv.git ~/.pyenv
     - export PYENV_ROOT="$HOME/.pyenv"
