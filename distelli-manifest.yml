@@ -21,8 +21,8 @@ ipcrm/puppet_webapp:
     - 'dist/*.tar.gz'
   PreInstall:
     - sudo yum install -y python-pip python-virtualenv
-    - -d ~/virtualenv || mkdir ~/virtualenv
-    - -d ~/virtualenv/puppet_webapp && rm -rf ~/virtualenv/puppet_webapp
+    - test -d ~/virtualenv || mkdir ~/virtualenv
+    - test -d ~/virtualenv/puppet_webapp && rm -rf ~/virtualenv/puppet_webapp
     - virtualenv ~/virtualenv/puppet_webapp
   PostInstall:
     - source ~/virtualenv/puppet_webapp/bin/activate
