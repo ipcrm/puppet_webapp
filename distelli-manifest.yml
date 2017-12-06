@@ -1,4 +1,6 @@
 ipcrm/puppet_webapp:
+  Env:
+    - PORT: 8080
   PreBuild:
     - git clone https://github.com/pyenv/pyenv.git ~/.pyenv
     - export PYENV_ROOT="$HOME/.pyenv"
@@ -17,7 +19,17 @@ ipcrm/puppet_webapp:
     - python ./setup.py sdist
   PkgInclude:
     - 'dist/*.tar.gz'
+  PreInstall:
+    - sudo yum install -y python-pip python-virtualenv
+    - mkdir ~/venv
+    - virtualenv ~/virtualenv/puppet_webapp
   PostInstall:
-    - sudo pip install dist/* --no-deps
-  Start:
-    - sudo service httpd restart
+    - source ~/virtualenv/puppet_webapp/bin/activate
+    - pip install dist/* --no-deps
+    - pip install gunicorn
+  Exec:
+    - source ~/virtualenv/puppet_webapp/bin/activate
+    - gunicorn --workers=2 webui:webui
+  PostStart:
+    - sudo iptables -A INPUT -p tcp -m multiport --dports $PORT -m comment --comment "110 allow http ${PORT} access" -j ACCEPT
+    - sudo iptables-save >  /etc/sysconfig/iptables
