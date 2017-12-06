@@ -20,7 +20,7 @@ ipcrm/puppet_webapp:
   PkgInclude:
     - 'dist/*.tar.gz'
   PreInstall:
-    - sudo yum install -y python-pip python-virtualenv
+    - sudo yum install -y python-pip python-virtualenv gcc gcc-c++
     - test -d ~/virtualenv || mkdir ~/virtualenv
     - test -d ~/virtualenv/puppet_webapp && rm -rf ~/virtualenv/puppet_webapp
     - virtualenv ~/virtualenv/puppet_webapp
@@ -33,4 +33,3 @@ ipcrm/puppet_webapp:
     - gunicorn --workers=2 webui:webui
   PostStart:
     - sudo iptables -A INPUT -p tcp -m multiport --dports $PORT -m comment --comment "110 allow http ${PORT} access" -j ACCEPT
-    - sudo iptables-save >  /etc/sysconfig/iptables
