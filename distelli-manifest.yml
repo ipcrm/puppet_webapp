@@ -32,4 +32,4 @@ ipcrm/puppet_webapp:
     - source ~/virtualenv/puppet_webapp/bin/activate
     - gunicorn --workers=2 webui:webui -b 0.0.0.0:$PORT
   PostStart:
-    - sudo iptables -A INPUT -p tcp -m multiport --dports $PORT -m comment --comment "110 allow http ${PORT} access" -j ACCEPT
+    - sudo iptables -I INPUT -p tcp -m multiport --dports $PORT -m comment --comment "110 allow http ${PORT} access" -j ACCEPT
