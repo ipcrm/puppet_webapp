@@ -16,20 +16,15 @@ ipcrm/puppet_webapp:
     - eval "$(pyenv init -)"
     - pyenv local 2.7.10 3.5.0
     - tox
-    - python ./setup.py sdist
-  PkgInclude:
-    - 'dist/*.tar.gz'
+    - docker login -u "$DISTELLI_DOCKER_USERNAME" -p "$DISTELLI_DOCKER_PW" $DISTELLI_DOCKER_ENDPOINT
+    - docker build --quiet=false -t "$DISTELLI_DOCKER_REPO" $DISTELLI_DOCKER_PATH
+    - docker tag "$DISTELLI_DOCKER_REPO" "$DISTELLI_DOCKER_REPO:$DISTELLI_BUILDNUM"
+    - docker push "$DISTELLI_DOCKER_REPO:$DISTELLI_BUILDNUM"
   PreInstall:
-    - sudo yum install -y python-pip python-virtualenv gcc gcc-c++
-    - test -d ~/virtualenv || mkdir ~/virtualenv
-    - test -d ~/virtualenv/puppet_webapp && rm -rf ~/virtualenv/puppet_webapp
-    - virtualenv ~/virtualenv/puppet_webapp
-  PostInstall:
-    - source ~/virtualenv/puppet_webapp/bin/activate
-    - pip install dist/*
-    - pip install gunicorn
+    - sudo docker login -u "$DISTELLI_DOCKER_USERNAME" -p "$DISTELLI_DOCKER_PW" "$DISTELLI_DOCKER_ENDPOINT"
   Exec:
-    - source ~/virtualenv/puppet_webapp/bin/activate
-    - gunicorn --workers=2 webui:webui -b 0.0.0.0:$PORT
-  PostStart:
-    - sudo iptables -I INPUT -p tcp -m multiport --dports $PORT -m comment --comment "110 allow http ${PORT} access" -j ACCEPT
+    - cid=$(uuidgen)
+    - trap 'sudo docker stop $cid' SIGTERM
+    - sudo -E docker run --name=$cid $DISTELLI_DOCKER_ENVS --rm=true $DISTELLI_DOCKER_PORTS "$DISTELLI_DOCKER_REPO:$DISTELLI_BUILDNUM" &
+    - wait
+    - "true"
