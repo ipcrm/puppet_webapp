@@ -2,19 +2,19 @@ ipcrm/puppet_webapp:
   Env:
     - PORT: "8080"
   PreBuild:
-    - git clone https://github.com/pyenv/pyenv.git ~/.pyenv
-    - export PYENV_ROOT="$HOME/.pyenv"
-    - export PATH="$PYENV_ROOT/bin:$PATH"
-    - eval "$(pyenv init -)"
-    - pyenv install 2.7.10
-    - pyenv install 3.5.0
-    - pyenv local 2.7.10 3.5.0
-    - pip3.5 install tox
+#    - git clone https://github.com/pyenv/pyenv.git ~/.pyenv
+#    - export PYENV_ROOT="$HOME/.pyenv"
+#    - export PATH="$PYENV_ROOT/bin:$PATH"
+#    - eval "$(pyenv init -)"
+#    - pyenv install 2.7.10
+#    - pyenv install 3.5.0
+#    - pyenv local 2.7.10 3.5.0
+    - pip install tox
   Build:
-    - export PYENV_ROOT="$HOME/.pyenv"
-    - export PATH="$PYENV_ROOT/bin:$PATH"
-    - eval "$(pyenv init -)"
-    - pyenv local 2.7.10 3.5.0
+#    - export PYENV_ROOT="$HOME/.pyenv"
+#    - export PATH="$PYENV_ROOT/bin:$PATH"
+#    - eval "$(pyenv init -)"
+#    - pyenv local 2.7.10 3.5.0
     - tox
     - python ./setup.py sdist
   PkgInclude:
