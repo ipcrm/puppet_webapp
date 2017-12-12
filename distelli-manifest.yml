@@ -2,19 +2,8 @@ ipcrm/puppet_webapp_docker:
   Env:
     - PORT: "8080"
   PreBuild:
-    - git clone https://github.com/pyenv/pyenv.git ~/.pyenv
-    - export PYENV_ROOT="$HOME/.pyenv"
-    - export PATH="$PYENV_ROOT/bin:$PATH"
-    - eval "$(pyenv init -)"
-    - pyenv install 2.7.10
-    - pyenv install 3.5.0
-    - pyenv local 2.7.10 3.5.0
-    - pip3.5 install tox
+    - sudo pip install tox
   Build:
-    - export PYENV_ROOT="$HOME/.pyenv"
-    - export PATH="$PYENV_ROOT/bin:$PATH"
-    - eval "$(pyenv init -)"
-    - pyenv local 2.7.10 3.5.0
     - tox
     - docker login -u "$DISTELLI_DOCKER_USERNAME" -p "$DISTELLI_DOCKER_PW" $DISTELLI_DOCKER_ENDPOINT
     - docker build --quiet=false -t "$DISTELLI_DOCKER_REPO" $DISTELLI_DOCKER_PATH
