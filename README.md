@@ -1,5 +1,5 @@
 Flask Puppet
 =================
-Example *FLASK* App.
+Example *FLASK* App
 
 Automated Testing defined in Jenkinsfile
