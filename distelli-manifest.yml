@@ -22,3 +22,5 @@ ipcrm/puppet_webapp:
     - gunicorn --workers=2 webui:webui -b 0.0.0.0:$PORT
   PostStart:
     - sudo iptables -I INPUT -p tcp -m multiport --dports $PORT -m comment --comment "110 allow http ${PORT} access" -j ACCEPT
+    - publichostname=$(curl -s http://169.254.169.254/latest/meta-data/public-hostname) || true
+    - 'echo "URL: http://$publichostname:$PORT"'
