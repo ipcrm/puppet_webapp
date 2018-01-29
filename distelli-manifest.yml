@@ -1,4 +1,4 @@
-ipcrm/puppet_webapp:
+ipcrm/puppet_webapp1:
   Env:
     - PORT: "8080"
   PreBuild:
