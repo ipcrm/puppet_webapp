@@ -11,3 +11,4 @@ puppet_webapp.egg-info/
 .coverage
 .scannerwork
 coverage.xml
+reports/
