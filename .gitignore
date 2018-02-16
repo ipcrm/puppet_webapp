@@ -8,3 +8,4 @@ puppet_webapp.egg-info/
 .tox
 .eggs
 .python-version
+.coverage
