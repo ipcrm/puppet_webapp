@@ -32,8 +32,8 @@ class FlaskTestCase(unittest.TestCase):
 
 
     def test_404_response(self):
-        rv = self.app.get('/testurl')
-        self.assertTrue("logo.png" in str(rv.data))
+        rv = self.app.get('/testurl/testurl')
+        self.assertTrue("Whoops!" in str(rv.data))
 
 if __name__ == '__main__':
     unittest.main()
