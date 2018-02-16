@@ -9,3 +9,5 @@ puppet_webapp.egg-info/
 .eggs
 .python-version
 .coverage
+.scannerwork
+coverage.xml
