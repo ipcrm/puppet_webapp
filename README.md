@@ -1,4 +1,8 @@
-[![Coverage Status](https://coveralls.io/repos/github/ipcrm/puppet_webapp/badge.svg?branch=master)](https://coveralls.io/github/ipcrm/puppet_webapp?branch=master)
+[![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=ipcrm-puppet_webapp&metric=alert_status)]
+[![Coverage Status](https://sonarcloud.io/api/project_badges/measure?project=ipcrm-puppet_webapp&metric=coverage)]
+[![Maintainability](https://sonarcloud.io/api/project_badges/measure?project=ipcrm-puppet_webapp&metric=sqale_rating)]
+[![Vulerabilities](https://sonarcloud.io/api/project_badges/measure?project=ipcrm-puppet_webapp&metric=vulnerabilities)]
+
 
 Flask Puppet
 =================
