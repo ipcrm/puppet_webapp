@@ -3,9 +3,15 @@ ipcrm/puppet_webapp:
     - PORT: "8080"
   PreBuild:
     - sudo pip install tox
+    - curl -o jq 'https://github.com/stedolan/jq/releases/download/jq-1.5/jq-linux64'
+    - chmod +x jq
   Build:
     - tox
     - sonar-scanner -Dsonar.login=$SONAR_LOGIN -Dsonar.projectVersion=$(python ./setup.py --version)
+    - sleep 5
+    - QG=$(curl -s https://sonarcloud.io/api/qualitygates/project_status\?projectKey\=ipcrm-puppet_webapp|./jq .[].status)
+    - [ $QG == '"OK"' ] || echo "Failed SonarCube Quality Gate!"
+    - [ $QG == '"OK"' ] || exit 10
     - python ./setup.py sdist
   PkgInclude:
     - 'dist/*.tar.gz'
