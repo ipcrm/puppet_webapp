@@ -1,6 +1,7 @@
 .DS_Store
 *.pyc
 MANIFEST
+MANIFEST.in
 dist/
 flask_puppet.egg-info/
 build/
