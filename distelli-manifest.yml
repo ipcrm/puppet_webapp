@@ -5,6 +5,7 @@ ipcrm/puppet_webapp:
     - sudo pip install tox
   Build:
     - tox
+    - sonar-scanner -Dsonar.login=$SONAR_LOGIN -Dsonar.projectVersion=$(python ./setup.py --version)
     - python ./setup.py sdist
   PkgInclude:
     - 'dist/*.tar.gz'
