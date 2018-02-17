@@ -31,3 +31,9 @@ ipcrm/puppet_webapp:
     - sudo iptables -I INPUT -p tcp -m multiport --dports $PORT -m comment --comment "110 allow http ${PORT} access" -j ACCEPT
     - publicip=$(curl -s ident.me) || true
     - 'echo "URL: http://$publicip:$PORT"'
+    - curl -s 'http://$publicip:$PORT' | grep 'The shortest path' 1>/dev/null
+    - SMOKETEST=$?
+    - if [ $SMOKETEST != 0 ]; then
+    -   echo "Failed smoke test!"
+    -   exit 1
+    - fi
