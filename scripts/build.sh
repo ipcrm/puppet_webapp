@@ -1,6 +1,11 @@
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
-pyenv local 2.7.10 3.5.0
 tox
+sonar-scanner -Dsonar.login=$SONAR_LOGIN -Dsonar.projectVersion=$(python ./setup.py --version)
+sleep 5
+QG=$(curl -s https://sonarcloud.io/api/qualitygates/project_status\?projectKey\=ipcrm-puppet_webapp|./jq .[].status)
+
+if [ $QG != '"OK"' ]; then
+  echo "Failed SonarCube Quality Gate!"
+  exit 10
+fi
+
 python ./setup.py sdist
