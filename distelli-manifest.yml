@@ -5,7 +5,7 @@ ipcrm/puppet_webapp:
     - sh -x scripts/pre_build.sh
   Build:
     - export SONAR_LOGIN=$SONAR_LOGIN
-    - sh -x scripts/pre_build.sh
+    - sh -x scripts/build.sh
   PkgInclude:
     - 'dist/*.tar.gz'
   PreInstall:

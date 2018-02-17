@@ -5,5 +5,3 @@ curl -s -L -o sonar.zip 'https://sonarsource.bintray.com/Distribution/sonar-scan
 unzip -d /var/tmp/sonar sonar.zip
 chmod +x /var/tmp/sonar/sonar-scanner-3.0.3.778-linux/bin/sonar-scanner
 sudo ln -s /var/tmp/sonar/sonar-scanner-3.0.3.778-linux/bin/sonar-scanner /usr/local/bin/sonar-scanner
-sudo apt-get update
-sudo apt-get install default-jdk
