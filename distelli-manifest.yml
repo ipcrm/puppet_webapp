@@ -14,7 +14,7 @@ ipcrm/puppet_webapp:
     - tox
     - sonar-scanner -Dsonar.login=$SONAR_LOGIN -Dsonar.projectVersion=$(python ./setup.py --version)
     - sleep 5
-    - export QG=$(curl -s https://sonarcloud.io/api/qualitygates/project_status\?projectKey\=ipcrm-puppet_webapp|./jq .[].status)
+    - QG=`curl -s https://sonarcloud.io/api/qualitygates/project_status\?projectKey\=ipcrm-puppet_webapp|./jq .[].status`
     - [ $QG == '"OK"' ] || echo "Failed SonarCube Quality Gate!"
     - [ $QG == '"OK"' ] || exit 10
     - python ./setup.py sdist
