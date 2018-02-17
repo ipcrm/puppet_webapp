@@ -1,10 +1,10 @@
-from setuptools import setup, find_packages
+from setuptools import setup
 import re
 
 try:
-  verstrline = open('webui/_version.py', "rt").read()
-except:
-  raise RuntimeError("cannot read version file")
+    verstrline = open('webui/_version.py', "rt").read()
+except IOError:
+    raise RuntimeError("cannot read version file")
 else:
     VSRE = r"^__version__ = ['\"]([^'\"]*)['\"]"
     mo = re.search(VSRE, verstrline, re.M)
@@ -34,16 +34,16 @@ setup(
     url="https://github.com/ipcrm/puppet_webapp",
 
     description="Example App",
-    test_suite = 'tests',
+    test_suite='tests',
 
     # Dependent packages (distributions)
     install_requires=[
-      'Flask==0.10.1',
-      'Flask-Testing==0.4.2',
-      'itsdangerous==0.24',
-      'Jinja2==2.8',
-      'MarkupSafe==0.23',
-      'Werkzeug==0.11.9',
+        'Flask==0.10.1',
+        'Flask-Testing==0.4.2',
+        'itsdangerous==0.24',
+        'Jinja2==2.8',
+        'MarkupSafe==0.23',
+        'Werkzeug==0.11.9',
     ],
 
 )

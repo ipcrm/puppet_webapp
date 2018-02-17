@@ -1,6 +1,7 @@
 .DS_Store
 *.pyc
 MANIFEST
+MANIFEST.in
 dist/
 flask_puppet.egg-info/
 build/
@@ -8,3 +9,7 @@ puppet_webapp.egg-info/
 .tox
 .eggs
 .python-version
+.coverage
+.scannerwork
+coverage.xml
+reports/
