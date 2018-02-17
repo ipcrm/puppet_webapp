@@ -2,22 +2,10 @@ ipcrm/puppet_webapp:
   Env:
     - PORT: "8080"
   PreBuild:
-    - sudo pip install tox
-    - curl -o jq 'https://github.com/stedolan/jq/releases/download/jq-1.5/jq-linux64'
-    - chmod +x jq
-    - curl -s -L -o sonar.zip 'https://sonarsource.bintray.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-3.0.3.778-linux.zip'
-    - unzip -d /var/tmp/sonar sonar.zip
-    - chmod +x /var/tmp/sonar/sonar-scanner-3.0.3.778-linux/bin/sonar-scanner
-    - sudo ln -s /var/tmp/sonar/sonar-scanner-3.0.3.778-linux/bin/sonar-scanner /usr/local/bin/sonar-scanner
-    - apt-get install default-jdk
+    - sh -x scripts/pre_build.sh
   Build:
-    - tox
-    - sonar-scanner -Dsonar.login=$SONAR_LOGIN -Dsonar.projectVersion=$(python ./setup.py --version)
-    - sleep 5
-    - QG=`curl -s https://sonarcloud.io/api/qualitygates/project_status\?projectKey\=ipcrm-puppet_webapp|./jq .[].status`
-    - [ $QG == '"OK"' ] || echo "Failed SonarCube Quality Gate!"
-    - [ $QG == '"OK"' ] || exit 10
-    - python ./setup.py sdist
+    - export SONAR_LOGIN=$SONAR_LOGIN
+    - sh -x scripts/pre_build.sh
   PkgInclude:
     - 'dist/*.tar.gz'
   PreInstall:
