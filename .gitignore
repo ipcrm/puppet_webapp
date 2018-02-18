@@ -12,3 +12,4 @@ puppet_webapp.egg-info/
 .scannerwork
 coverage.xml
 reports/
+.pytest_cache

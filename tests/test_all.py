@@ -30,6 +30,7 @@ class FlaskTestCase(unittest.TestCase):
 
     def test_404_response(self):
         rv = self.app.get('/testurl/testurl')
+        self.assertEqual(rv.status_code, 404)
         self.assertTrue("Whoops!" in str(rv.data))
 
 
