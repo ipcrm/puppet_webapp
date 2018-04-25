@@ -9,6 +9,7 @@ ipcrm/puppet_webapp1:
   PkgInclude:
     - 'dist/*.tar.gz'
   PreInstall:
+    - env
     - sudo yum install -y python-pip python-virtualenv gcc gcc-c++
     - test -d ~/virtualenv || mkdir ~/virtualenv
     - test -d ~/virtualenv/puppet_webapp && rm -rf ~/virtualenv/puppet_webapp
