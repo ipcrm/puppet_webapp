@@ -2,7 +2,7 @@ ipcrm/puppet_webapp1:
   Env:
     - PORT: "8080"
   PreBuild:
-    - sudo pip install tox
+    - sudo -H pip install tox
   Build:
     - tox
     - python ./setup.py sdist
@@ -10,7 +10,7 @@ ipcrm/puppet_webapp1:
     - 'dist/*.tar.gz'
   PreInstall:
     - env
-    - sudo yum install -y python-pip python-virtualenv gcc gcc-c++
+    - sudo -H yum install -y python-pip python-virtualenv gcc gcc-c++
     - test -d ~/virtualenv || mkdir ~/virtualenv
     - test -d ~/virtualenv/puppet_webapp && rm -rf ~/virtualenv/puppet_webapp
     - virtualenv ~/virtualenv/puppet_webapp
