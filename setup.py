@@ -43,7 +43,7 @@ setup(
         'itsdangerous==0.24',
         'Jinja2==2.8',
         'MarkupSafe==0.23',
-        'Werkzeug==0.11.9',
+        'Werkzeug==0.15.3',
     ],
 
 )
